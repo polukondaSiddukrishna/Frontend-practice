@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f3f6fb; --card:#ffffff; --muted:#6b7280; --accent:#4f46e5; --accent-2:#06b6d4; --glass:rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; margin:0; background:var(--bg); color:#0f172a}
+    .app{display:grid; grid-template-columns:240px 1fr; min-height:100vh}
+    /* Sidebar */
+    .sidebar{background:linear-gradient(180deg,#1f2937 0%, #111827 100%); color:#fff; padding:28px 20px}
+    .brand{font-weight:700; font-size:18px; letter-spacing:0.2px; margin-bottom:18px}
+    .nav{margin-top:12px}
+    .nav a{display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:8px; color:rgba(255,255,255,0.9); text-decoration:none; margin-bottom:6px}
+    .nav a:hover{background:rgba(255,255,255,0.04)}
+    .nav .active{background:rgba(255,255,255,0.08)}
+    .nav svg{opacity:0.9}
+    /* Topbar + Main */
+    .main{padding:20px 28px}
+    header{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px}
+    .search{display:flex; align-items:center; gap:12px; background:var(--card); padding:8px 12px; border-radius:12px; box-shadow:0 1px 2px rgba(16,24,40,0.04)}
+    .search input{border:0; outline:none; width:240px; font-size:14px}
+    .profile{display:flex; align-items:center; gap:12px}
+    .avatar{width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg,var(--accent),var(--accent-2)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:600}
+    /* Stats grid */
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px}
+    .card{background:var(--card); padding:16px; border-radius:12px; box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    .card h3{margin:0; font-size:13px; color:var(--muted); font-weight:600}
+    .metric{font-size:20px; font-weight:700; margin-top:8px}
+    .trend{font-size:13px; color:green; margin-top:6px}
+    /* Layout sections */
+    .content{display:grid; grid-template-columns:2fr 1fr; gap:18px; margin-top:18px}
+    .chart{height:240px; border-radius:12px; padding:16px}
+    .table{background:var(--card); padding:12px; border-radius:12px}
+    table{width:100%; border-collapse:collapse}
+    th, td{padding:10px 8px; text-align:left; font-size:13px; color:#0f172a}
+    th{color:var(--muted); font-weight:600}
+    tr+tr td{border-top:1px solid #eef2f7}
+    /* Responsive */
+    @media (max-width:900px){.app{grid-template-columns:1fr} .sidebar{display:flex; gap:12px; overflow:auto} .content{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">Simple Dashboard</div>
+      <div class="muted" style="opacity:.9; font-size:13px">Analytics & Insights</div>
+      <nav class="nav">
+        <a class="active" href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 13h8V3H3v10zM3 21h8v-6H3v6zM13 21h8V11h-8v10zM13 3v6h8V3h-8z" fill="currentColor"/></svg>Overview</a>
+        <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6h6l-4.8 3.5L19 20l-7-4-7 4 1.8-8.5L2 8h6l3-6z" fill="currentColor"/></svg>Reports</a>
+        <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 7a5 5 0 100 10 5 5 0 000-10z" fill="currentColor"/></svg>Users</a>
+        <a href="#"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 6h18v2H3V6zm0 5h12v2H3v-2zm0 5h12v2H3v-2z" fill="currentColor"/></svg>Settings</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <header>
+        <div style="display:flex; gap:12px; align-items:center">
+          <div class="search card" style="display:flex; align-items:center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <input placeholder="Search reports, users..." />
+          </div>
+          <h2 style="margin:0; font-size:18px">Overview</h2>
+        </div>
+        <div class="profile">
+          <div style="text-align:right"><div style="font-weight:700">Acme Corp</div><div style="font-size:12px; color:var(--muted)">Administrator</div></div>
+          <div class="avatar">AC</div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div class="card">
+          <h3>Total Revenue</h3>
+          <div class="metric">$124,320</div>
+          <div class="trend">+8.4% vs last month</div>
+        </div>
+        <div class="card">
+          <h3>Active Users</h3>
+          <div class="metric">8,430</div>
+          <div class="trend">+3.1% this week</div>
+        </div>
+        <div class="card">
+          <h3>New Signups</h3>
+          <div class="metric">1,204</div>
+          <div class="trend" style="color:#ef4444">-1.2% today</div>
+        </div>
+        <div class="card">
+          <h3>Conversion Rate</h3>
+          <div class="metric">4.8%</div>
+          <div class="trend">+0.2pp</div>
+        </div>
+      </section>
+
+      <section class="content">
+        <div class="card chart">
+          <h3 style="margin-top:0; color:var(--muted)">Traffic (last 7 days)</h3>
+          <!-- Simple inline sparkline -->
+          <svg width="100%" height="160" viewBox="0 0 600 160" preserveAspectRatio="none">
+            <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6366f1" stop-opacity="0.9"/><stop offset="1" stop-color="#06b6d4" stop-opacity="0.2"/></linearGradient></defs>
+            <path d="M0 120 C80 90 140 40 200 60 C260 82 320 50 380 30 C440 18 500 60 560 40 L560 160 L0 160Z" fill="url(#g)" opacity="0.95"></path>
+            <path d="M0 120 C80 90 140 40 200 60 C260 82 320 50 380 30 C440 18 500 60 560 40" stroke="#4338ca" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <aside>
+          <div class="table card">
+            <h3 style="margin-top:0; color:var(--muted)">Recent Signups</h3>
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Email</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Jane Cooper</td><td>jane@example.com</td><td style="color:green">Active</td></tr>
+                <tr><td>John Doe</td><td>john@example.com</td><td style="color:var(--muted)">Pending</td></tr>
+                <tr><td>Maria Garcia</td><td>maria@example.com</td><td style="color:green">Active</td></tr>
+                <tr><td>Samuel Lee</td><td>samuel@example.com</td><td style="color:#ef4444">Banned</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </aside>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>
